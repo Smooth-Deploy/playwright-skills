@@ -1,6 +1,6 @@
 ---
 name: assess-test
-description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of plan-tests before handing a spec over. Invoke with two paths, ticket then spec.
+description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of plan-tests before handing a spec over. Invoke with the ticket (a path, or the ticket text), then the spec path.
 license: MIT
 context: fork
 background: false
@@ -8,7 +8,7 @@ background: false
 
 # assess-test
 
-Arguments: `$ARGUMENTS` (ticket path, then spec path). Read both files. Output: a verdict per axis and a list of misses, each with the line to add. The reviewer changes nothing and has not seen how the spec was written; the author fixes.
+Arguments: `$ARGUMENTS` (the ticket as a path or as its text, then the spec path). Read both. Output: a verdict per axis and a list of misses, each with the line to add. The reviewer changes nothing and has not seen how the spec was written; the author fixes.
 
 Read the ticket first and list its claims: every outcome, every page named, every "then" clause. A page named in the ticket is a claim about what the user sees on it: the items, the amount, the status. URL or heading alone leaves it unticked. Then read the spec once, top to bottom, and tick each claim against the assertion that proves it. An unticked claim is a miss. Only after that read for the other axes.
 
