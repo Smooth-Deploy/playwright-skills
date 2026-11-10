@@ -34,14 +34,16 @@ Group done lines into at most 3 scenarios, ranked: permission boundary and failu
 
 `playwright-cli` is installed (a prerequisite that `e2e-setup` checks) and the app is already up at the base URL. The first command is `open`; a connection error on `open` is reported as the app being down. The base URL, the login steps and the account come from ENV, never from memory or a guess.
 
-```bash
-playwright-cli open <base url><login path>
-playwright-cli snapshot            # refs like e12
-playwright-cli fill e12 "<account email from ENV>"
-playwright-cli click e15
-playwright-cli snapshot            # what changed? that is the assertion
-playwright-cli generate-locator e20   # user-facing locator for the spec
-playwright-cli run-code "async page => { const r = await page.request.delete('<api path of the rule under test>'); return r.status(); }"
+Each line is one `playwright-cli` command:
+
+```
+open <base url><login path>
+snapshot              # refs like e12
+fill e12 "<account email from ENV>"
+click e15
+snapshot              # what changed? that is the assertion
+generate-locator e20  # user-facing locator for the spec
+run-code "async page => { const r = await page.request.delete('<api path of the rule under test>'); return r.status(); }"
 ```
 
 Loop per step: act, snapshot, write down the user-facing locator (`getByRole`, `getByLabel`, `getByText`; `getByTestId` only when nothing user-facing is unique) and the assertion that the snapshot proves. For a rule check, run the direct request with `run-code`, then `reload` and snapshot. For a failure path, trigger the error, then `reload` and snapshot. In both, the user-visible state after reload is the assertion; the state before reload is a second, weaker one.

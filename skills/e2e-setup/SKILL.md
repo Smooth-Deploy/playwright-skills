@@ -10,21 +10,7 @@ Input: the repo (if any), a base URL, one test account. Output: `.e2e/e2e-env.md
 
 Facts come from code first. A crawl sees only what is reachable and misses roles, flags and reset hooks; the code has all three. Steps 1 and 2 use file reading and search only. The browser is used once, in step 3, to prove the file, and `playwright-cli` is the one command needed.
 
-## Prerequisite: playwright-cli
-
-`playwright-cli` drives the browser for this skill and for every other E2E skill in this set. They all assume it is installed and do not check again. Check it first:
-
-```
-playwright-cli --version
-```
-
-Command not found: stop and ask the user to install it, then continue.
-
-```
-npm install -g @playwright/cli@latest
-```
-
-Done when: `playwright-cli --version` prints a version.
+Every E2E skill needs `playwright-cli`. If `playwright-cli --version` fails, ask the user to run `npm install -g @playwright/cli@latest`, then continue.
 
 ## 1. Read
 
@@ -46,17 +32,7 @@ Collect every `unknown` and every guess into one short list and ask the user onc
 
 ## 3. Prove
 
-One smoke check with `playwright-cli`, in this order:
-
-```
-playwright-cli open <base url><login path>
-playwright-cli snapshot
-playwright-cli fill <email ref> <email>
-playwright-cli fill <password ref> <password>
-playwright-cli click <submit ref>
-playwright-cli snapshot
-playwright-cli close
-```
+One smoke check. Each step is one `playwright-cli` command, in this order: `open <base url><login path>`, `snapshot`, `fill <email ref> <email>`, `fill <password ref> <password>`, `click <submit ref>`, `snapshot`, `close`.
 
 Write down the exact labels and button name of the login form and the landing URL as seen, since specs will repeat these steps verbatim. The app is already running at the base URL given; a 404 or connection error on `open` goes under `Open questions` and the login section stays `(unverified)`.
 
