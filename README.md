@@ -6,6 +6,7 @@ Skills:
 
 - `e2e-setup`: learns a web app once and writes `.e2e/e2e-env.md`, the environment file the other skills read. Run it first.
 - `plan-tests`: turns a ticket into a Playwright E2E spec in which every step was proven in a live browser.
+- `repro-test`: turns a bug report into one test that is red on the bug and green once it is fixed.
 - `assess-test`: reviews a spec against its ticket and reports what the spec fails to prove. `plan-tests` runs it as its last step.
 - `release-canary`: replies with the installed release version. Use it to check that an install or an update worked.
 
