@@ -1,6 +1,6 @@
 {
   "name": "playwright-skills",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Agent skills for testing with Playwright, from Smooth Deploy.",
   "author": {
     "name": "Smooth Deploy",
