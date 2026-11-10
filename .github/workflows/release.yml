@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Tag is on master
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/master
+      - name: Tag equals the version in the files
+        run: node scripts/version.mjs "$TAG"
+      - name: Skills follow the Agent Skills specification
+        run: gh skill publish --dry-run
+      - name: Move stable to the release
+        run: git push origin "$GITHUB_SHA:refs/heads/stable"
+      - name: Create GitHub release
+        run: gh release create "$TAG" --verify-tag --generate-notes

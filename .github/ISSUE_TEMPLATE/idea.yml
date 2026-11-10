@@ -1,0 +1,24 @@
+name: Idea or feedback
+description: A change to an existing skill, or a new skill. One change per issue.
+labels: [enhancement]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      description: Which skill this changes, or "new".
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: What went wrong or is missing
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: The smallest change that fixes it.
+    validations:
+      required: true

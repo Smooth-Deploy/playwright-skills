@@ -1,0 +1,23 @@
+name: Validate
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Manifests parse and versions agree
+        run: |
+          node -e 'for (const f of [".claude-plugin/marketplace.json", ".claude-plugin/plugin.json"]) JSON.parse(require("fs").readFileSync(f, "utf8"))'
+          node scripts/version.mjs
+      - name: Skills follow the Agent Skills specification
+        run: gh skill publish --dry-run
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,16 @@
+{
+  "name": "smooth-deploy",
+  "owner": {
+    "name": "Smooth Deploy",
+    "url": "https://github.com/Smooth-Deploy"
+  },
+  "description": "Agent skills from Smooth Deploy.",
+  "plugins": [
+    {
+      "name": "playwright-skills",
+      "source": "./",
+      "description": "Agent skills for testing with Playwright, from Smooth Deploy.",
+      "category": "testing"
+    }
+  ]
+}

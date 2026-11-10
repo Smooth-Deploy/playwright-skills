@@ -1,0 +1,11 @@
+{
+  "name": "playwright-skills",
+  "version": "0.0.1",
+  "description": "Agent skills for testing with Playwright, from Smooth Deploy.",
+  "author": {
+    "name": "Smooth Deploy",
+    "url": "https://github.com/Smooth-Deploy"
+  },
+  "repository": "https://github.com/Smooth-Deploy/playwright-skills",
+  "license": "MIT"
+}

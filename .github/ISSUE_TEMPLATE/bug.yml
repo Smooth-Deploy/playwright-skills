@@ -1,0 +1,37 @@
+name: Bug
+description: A skill did the wrong thing in a real session. One bug per issue.
+labels: [bug]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: The release version, or the commit SHA you installed from.
+    validations:
+      required: true
+  - type: input
+    id: harness
+    attributes:
+      label: Agent and version
+      description: e.g. Claude Code 2.1.322, OpenCode 2.2.7. Say how you installed (plugin, gh skill, npx skills).
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The smallest steps that show the bug, and what the skill did.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
