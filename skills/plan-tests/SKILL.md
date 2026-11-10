@@ -54,20 +54,11 @@ Done when: every done line has a proven locator and assertion.
 
 ## 4. Write the spec
 
-One file. Header comment lists the done lines and which test covers each. Structure:
+One file. Header comment lists the done lines and which test covers each. Load the `e2e-spec-rules` skill and follow every rule in it; one disqualified pattern disqualifies the spec. On top of those rules:
 
-- Every test is **self-contained**: it reads top to bottom as the user's journey. Reset (per ENV), log in through the UI, wait for the landing URL, `goto` the page under test, wait on its ready signal (per ENV), then the scenario. All of it inline, in every test, as plain Playwright steps. No `beforeEach`, no helper functions, no custom fixtures, no `request` fixture: `async ({ page })` is the only signature. Repetition between tests is correct here; a reader of one test needs nothing else.
 - One `test` per scenario, named after the done line.
-- Locators: `getByRole`, `getByLabel`, `getByText`, `getByTestId`, scoped with `.filter({ has })` or chained from a row or dialog. No CSS or `.locator(...)`. Ready signal the same way: `await expect(page.getByTestId("cart-page")).toHaveAttribute("data-state", "ready")`.
-- Web-first assertions only (`await expect(locator).toBeVisible()`, `toHaveCount(0)`, `toHaveURL`). Assert the exact element touched or revealed in step 3, with the exact value: `toHaveText("paid")`, since `toContainText("paid")` also holds for "unpaid", and a `toHaveCount(1)` on generic text proves nothing.
-- Rows are found by the name the user sees (`getByRole("row", { name: "CI pipeline" })`), never by a seed id; seed ids belong only in `page.request` URLs.
-- Absence: `await expect(row.getByRole("button", { name: "Remove" })).toHaveCount(0)` scoped to the row, never an unscoped `getByText`.
+- Assert the exact element touched or revealed in step 3.
 - Direct rule check: `page.request` for the attempt (it carries the page's login cookies; the `request` fixture is a stranger with no session), `expect(res.status())` for the code, then `reload` and a visible assertion.
-- Passwords: `process.env.E2E_PASSWORD_<NAME>`, the variable ENV names. Never the literal value.
-- Relative URLs everywhere, `goto("/settings")` and `page.request.delete("/api/...")` alike. The base URL lives in the Playwright config, never in the spec.
-- Unchanged state after an error: assert it, `reload`, wait for ready, assert it again.
-
-Green-on-clean killers, each disqualifies the spec: `waitForTimeout`, `if (await x.isVisible())`, `.catch(() => ...)` on a locator, regex locators guessing the UI (`/log ?in|sign ?in/`), `page.on("dialog")` for a dialog never seen live, `.first()`/`.last()`/`.nth()` to silence ambiguity, `.or()` to hedge between two guesses (`.and()` and `.filter()` narrow and are fine).
 
 ## 5. Run until green
 
