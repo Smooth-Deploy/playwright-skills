@@ -42,16 +42,11 @@ Done when: a snapshot shows the actual line, and every step to it has a proven l
 
 ## 3. Write the test
 
-One file, one `test`, named after the expected line. Header comment: the report title, the expected line, the actual line.
+One file, one `test`, named after the expected line. Header comment: the report title, the expected line, the actual line. Load the `e2e-spec-rules` skill and follow every rule in it. On top of those rules:
 
-- Self-contained: reset (per ENV), log in through the UI, wait for the landing URL, `goto` the page, wait on its ready signal (`await expect(page.getByTestId("cart-page")).toHaveAttribute("data-state", "ready")`), then the reporter's steps, then the assertion of the expected line. All inline, plain Playwright steps. No `beforeEach`, no helper functions, no custom fixtures, no `request` fixture: `async ({ page })` is the only signature.
-- Locators: `getByRole`, `getByLabel`, `getByText`, `getByTestId`, scoped with `.filter({ has })` or chained from a row or dialog. A label that matches two fields (login and register forms on one page) means the testid from ENV, never `.first()`. No CSS, no `.locator(...)`. Rows by the name the user sees, never a seed id.
-- Web-first assertions with exact values: `toHaveText("$0.00")`, `toHaveURL("/checkout")`, `toHaveCount(1)`, since `toContainText` and `toBeVisible` on generic text let the bug slip past. Assert after the reload from step 2 when the report is about state that should persist.
+- The test is the reporter's steps, then the assertion of the expected line.
+- Exact values matter most here: `toHaveText("$0.00")`, `toHaveURL("/checkout")`, `toHaveCount(1)`, since `toContainText` and `toBeVisible` on generic text let the bug slip past. Assert after the reload from step 2 when the report is about state that should persist.
 - Assertions: the expected line, plus stable preconditions (the seeded row count before the step). Nothing on transient text (a toast, "Saving…", a spinner): it races, and on the fixed app it is what turns the test red for the wrong reason.
-- Passwords: `process.env.E2E_PASSWORD_<NAME>`, the variable ENV names. Never the literal value.
-- Relative URLs; the base URL lives in the Playwright config.
-
-Disqualified: `waitForTimeout`, `if (await x.isVisible())`, `.catch(() => ...)`, `.first()`/`.last()`/`.nth()`, `.or()` hedging between two guesses (`.and()` and `.filter()` narrow and are fine), regex locators guessing the UI.
 
 ## 4. Run until red for the right reason
 
