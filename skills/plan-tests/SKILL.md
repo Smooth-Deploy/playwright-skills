@@ -6,7 +6,7 @@ license: MIT
 
 # plan-tests
 
-Input: a ticket (any text) and the environment file `.e2e/e2e-env.md` (base URL, accounts, login steps, reset), called ENV below. Output: one spec file in which every line was proven in a live browser.
+Input: a ticket (any text) and the environment file `.e2e/e2e-env.md` (base URL, accounts, login steps, reset), called ENV below. ENV names a variable for each password; the values are in `.env.e2e`, which is not committed. Output: one spec file in which every line was proven in a live browser.
 
 No `.e2e/e2e-env.md` in the repo: run the `e2e-setup` skill first. It writes that file and checks that `playwright-cli` is installed.
 
@@ -63,6 +63,7 @@ One file. Header comment lists the done lines and which test covers each. Struct
 - Rows are found by the name the user sees (`getByRole("row", { name: "CI pipeline" })`), never by a seed id; seed ids belong only in `page.request` URLs.
 - Absence: `await expect(row.getByRole("button", { name: "Remove" })).toHaveCount(0)` scoped to the row, never an unscoped `getByText`.
 - Direct rule check: `page.request` for the attempt (it carries the page's login cookies; the `request` fixture is a stranger with no session), `expect(res.status())` for the code, then `reload` and a visible assertion.
+- Passwords: `process.env.E2E_PASSWORD_<NAME>`, the variable ENV names. Never the literal value.
 - Relative URLs everywhere, `goto("/settings")` and `page.request.delete("/api/...")` alike. The base URL lives in the Playwright config, never in the spec.
 - Unchanged state after an error: assert it, `reload`, wait for ready, assert it again.
 
@@ -70,7 +71,7 @@ Green-on-clean killers, each disqualifies the spec: `waitForTimeout`, `if (await
 
 ## 5. Run until green
 
-Run the spec with `npx playwright test <file>`. A failure is one of two things:
+Run the spec with `npx playwright test <file>`. If the Playwright config does not load `.env.e2e`, load it into the shell first (`set -a; . ./.env.e2e; set +a`). A failure is one of two things:
 
 - The spec is wrong (locator matches 0 or 2+ elements, wrong wait, wrong order): fix it from a fresh live snapshot. A locator that matches 2+ gets scoped (`dialog.getByRole("alert")`) or named (`getByRole("status", { name: ... })`), never `.first()`.
 - The app is wrong: the ticket is not done. Report it with the failing assertion. The assertion stays.

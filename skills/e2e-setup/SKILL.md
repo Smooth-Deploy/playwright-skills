@@ -6,7 +6,7 @@ license: MIT
 
 # e2e-setup
 
-Input: the repo (if any), a base URL, one test account. Output: `.e2e/e2e-env.md`, committed. Later sessions read it instead of re-learning the app, so it holds what a QA engineer needs on day one and nothing a reader can get from one `cat`.
+Input: the repo (if any), a base URL, one test account. Output: `.e2e/e2e-env.md`, committed, and `.env.e2e` with the passwords, never committed. Later sessions read it instead of re-learning the app, so it holds what a QA engineer needs on day one and nothing a reader can get from one `cat`.
 
 Facts come from code first. A crawl sees only what is reachable and misses roles, flags and reset hooks; the code has all three. Steps 1 and 2 use file reading and search only. The browser is used once, in step 3, to prove the file, and `playwright-cli` is the one command needed.
 
@@ -40,7 +40,9 @@ Done when: the login steps in the file ran once live.
 
 ## 4. Write
 
-`.e2e/e2e-env.md`, markdown, under 60 lines, these headings in this order:
+Passwords first. Each one goes into `.env.e2e` at the repo root as `E2E_PASSWORD_<NAME>=<password>`, and `.env.e2e` goes into `.gitignore` before anything is committed. No password, token or key is ever written to `.e2e/e2e-env.md`; that file names the variable.
+
+Then `.e2e/e2e-env.md`, markdown, under 60 lines, these headings in this order:
 
 ```
 # Test environment: <app name>
@@ -49,7 +51,7 @@ Done when: the login steps in the file ran once live.
 - Never touch: <list, or "nothing known">
 
 ## Accounts
-- <email> / <password>, <role>, <what they own in the seed>
+- <email>, password in `E2E_PASSWORD_<NAME>` (`.env.e2e`), <role>, <what they own in the seed>
 
 ## Login
 <the exact steps as proven: goto, labels, button, landing URL>
@@ -74,4 +76,4 @@ Done when: the login steps in the file ran once live.
 - <each unknown or guess>
 ```
 
-Mark every line that came from a guess with `(unverified)`. Done when the file exists, the login section was proven in step 3, and `Open questions` lists every guess.
+Mark every line that came from a guess with `(unverified)`. Done when the file exists, the login section was proven in step 3, `Open questions` lists every guess, and `git check-ignore .env.e2e` prints the path.
