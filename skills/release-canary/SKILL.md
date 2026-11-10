@@ -8,4 +8,4 @@ license: MIT
 
 Reply with exactly the line below and nothing else. Do not look the version up anywhere; the line below is the answer.
 
-`release-canary version: 0.1.0`
+`release-canary version: 0.2.0`
