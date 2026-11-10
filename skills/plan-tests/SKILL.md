@@ -77,3 +77,5 @@ Run the spec with `npx playwright test <file>`. If the Playwright config does no
 - The app is wrong: the ticket is not done. Report it with the failing assertion. The assertion stays.
 
 Then read the spec against the done lines: every done line maps to one assertion. Close the browser: `playwright-cli close`.
+
+Last, run the `assess-test` skill on the ticket and the spec, and fix every miss it reports.
