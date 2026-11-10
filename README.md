@@ -4,7 +4,19 @@ Agent skills for testing with Playwright, installable into Claude Code, OpenCode
 
 Skills:
 
+- `e2e-setup`: learns a web app once and writes `.e2e/e2e-env.md`, the environment file the other skills read. Run it first.
+- `plan-tests`: turns a ticket into a Playwright E2E spec in which every step was proven in a live browser.
 - `release-canary`: replies with the installed release version. Use it to check that an install or an update worked.
+
+## Prerequisite
+
+The skills drive the browser with [`playwright-cli`](https://github.com/microsoft/playwright-cli):
+
+```
+npm install -g @playwright/cli@latest
+```
+
+`e2e-setup` checks for it; the other skills assume it is there.
 
 ## Install
 
