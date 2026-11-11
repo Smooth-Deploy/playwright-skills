@@ -46,7 +46,7 @@ One file, one `test`, named after the expected line. Header comment: the report 
 
 - The test is the reporter's steps, then the assertion of the expected line.
 - Exact values matter most here: `toHaveText("$0.00")`, `toHaveURL("/checkout")`, `toHaveCount(1)`, since `toContainText` and `toBeVisible` on generic text let the bug slip past. Assert after the reload from step 2 when the report is about state that should persist.
-- Assertions: the expected line, plus stable preconditions (the seeded row count before the step). Nothing on transient text (a toast, "Saving…", a spinner): it races, and on the fixed app it is what turns the test red for the wrong reason.
+- Assertions: the expected line, plus stable preconditions (the seeded row count before the step).
 
 ## 4. Run until red for the right reason
 

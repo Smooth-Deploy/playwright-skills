@@ -20,8 +20,8 @@ Scale: 0 missing or wrong, 1 weak, 2 good, 3 what an expert would write. 3 is ra
 2. **user_visible**: assertions on text, URL, element present or gone. API status alone or DOM structure alone scores 1. Readiness waits on `data-state` or `aria-busy` are fine.
 3. **boundaries**: the failure path and the rule edge from the ticket are exercised (the declined card, the forbidden action attempted anyway, the exact threshold), not only the happy path.
 4. **proof_strength**: the assertion fails when the feature silently breaks. Exact values (`toHaveText("paid")`, since `toContainText("paid")` holds for "unpaid"), reload before asserting state the ticket says must persist, absence scoped to a row or dialog, nothing that passes on an empty page.
-5. **decoupling**: `getByRole`, `getByLabel`, `getByText`, `getByTestId`, rows found by the name the user sees. No CSS, no `.locator(`, no sleeps, no `if (await x.isVisible())`, no `.first()`, no `.or()`.
-6. **noise**: every step serves a claim, no duplicated scenario. Inline login and setup repeated in each test is required house style, never noise.
+5. **decoupling**: `getByRole`, `getByLabel`, `getByText`, `getByTestId`, rows found by the name the user sees. No CSS, no `.locator(`, no sleeps, no `if (await x.isVisible())`, no `.first()`, no `.or()`, no seed id in a `goto` path.
+6. **noise**: every step serves a claim, no duplicated scenario. An assertion on transient text (toast, spinner) that the ticket does not claim is noise. Inline login and setup repeated in each test is required house style, never noise.
 
 ## Report
 
