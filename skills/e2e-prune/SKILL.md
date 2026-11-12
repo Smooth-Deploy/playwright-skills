@@ -1,10 +1,10 @@
 ---
-name: prune-suite
+name: e2e-prune
 description: Review a Playwright suite and propose which tests to drop and which steps to trim, with one reason per finding. Use when a suite has grown faster than anyone can read it, when asked which tests are noise, duplicates or theater, or before a maintenance pass. Proposes only; changes no test and no app file.
 license: MIT
 ---
 
-# prune-suite
+# e2e-prune
 
 Input: a suite directory (`tests/`, `e2e/`) and the environment file `.e2e/e2e-env.md`, called ENV below. No `.e2e/e2e-env.md` in the repo: run the `e2e-setup` skill first. Output: a report that names every test to drop, every step to trim, and the reason. Nothing is edited: deletion is the team's call, the skill supplies the evidence.
 
@@ -29,7 +29,7 @@ If the Playwright config does not load `.env.e2e`, load it into the shell first 
 npx playwright test --reporter=line
 ```
 
-A failing test gets reported as failing, not classified: triage comes first (the `triage-flaky` skill). Note runtime per test; a drop saves that time on every run.
+A failing test gets reported as failing, not classified: triage comes first (the `e2e-triage` skill). Note runtime per test; a drop saves that time on every run.
 
 ## 2. Read every test
 

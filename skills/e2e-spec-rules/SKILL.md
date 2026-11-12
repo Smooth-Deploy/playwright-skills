@@ -1,6 +1,6 @@
 ---
 name: e2e-spec-rules
-description: The rules every Playwright E2E spec in this skill set follows, covering self-contained tests, user-facing locators, exact web-first assertions, and the patterns that disqualify a spec. Use when writing, fixing or reviewing a Playwright E2E spec, and whenever plan-tests or repro-test says to follow the spec rules.
+description: The rules every Playwright E2E spec in this skill set follows, covering self-contained tests, user-facing locators, exact web-first assertions, and the patterns that disqualify a spec. Use when writing, fixing or reviewing a Playwright E2E spec, and whenever e2e-plan or e2e-repro says to follow the spec rules.
 license: MIT
 ---
 
@@ -12,8 +12,9 @@ Rules for a spec that fails when the feature breaks and for no other reason. ENV
 - **Locators.** `getByRole`, `getByLabel`, `getByText`; `getByTestId` only when nothing user-facing is unique. Scope with `.filter({ has })` or chain from a row or dialog. No CSS, no `.locator(...)`.
 - **Ambiguity.** A locator that matches 0 or 2+ elements is fixed from a fresh live snapshot: scoped (`dialog.getByRole("alert")`) or named (`getByRole("status", { name: ... })`). A label that matches two fields (login and register forms on one page) means the testid from ENV. Never `.first()`, never a try/catch.
 - **Ready signal.** Asserted like anything else: `await expect(page.getByTestId("cart-page")).toHaveAttribute("data-state", "ready")`.
-- **Rows.** Found by the name the user sees (`getByRole("row", { name: "CI pipeline" })`), never by a seed id; seed ids belong only in `page.request` URLs.
-- **Assertions.** Web-first only (`await expect(locator).toBeVisible()`, `toHaveCount(0)`, `toHaveURL`), on the exact element with the exact value: `toHaveText("paid")`, since `toContainText("paid")` also holds for "unpaid", and a `toHaveCount(1)` on generic text proves nothing.
+- **Rows.** Found by the name the user sees (`getByRole("row", { name: "CI pipeline" })`), never by a seed id. A record's own page is reached the way the user reaches it, by clicking its name, never by `goto` with a seed id in the path (`goto("/products/prod-001")`). Seed ids belong only in `page.request` URLs.
+- **Assertions.** Web-first only (`await expect(locator).toBeVisible()`, `toHaveCount(0)`, `toHaveURL`), on the exact element with the exact value: `toHaveText("paid")`, since `toContainText("paid")` also holds for "unpaid", and a `toHaveCount(1)` on generic text proves nothing. A URL is asserted as the exact string, `toHaveURL("/account")`, never a regex.
+- **Transient text** (toast, spinner, "Saving…"). Assert it only when the ticket claims it. To wait for an action, use the durable state it produces (the cart count, the new row).
 - **Absence.** `await expect(row.getByRole("button", { name: "Remove" })).toHaveCount(0)` scoped to the row, never an unscoped `getByText`.
 - **State that must persist or stay unchanged.** Assert it, `reload`, wait for ready, assert it again. The state after reload is the server's truth.
 - **Passwords.** `process.env.E2E_PASSWORD_<NAME>`, the variable ENV names. Never the literal value.

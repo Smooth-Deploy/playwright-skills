@@ -1,12 +1,12 @@
 ---
-name: assess-test
-description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of plan-tests before handing a spec over. Invoke with the ticket (a path, or the ticket text), then the spec path.
+name: e2e-assess
+description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of e2e-plan before handing a spec over. Invoke with the ticket (a path, or the ticket text), then the spec path.
 license: MIT
 context: fork
 background: false
 ---
 
-# assess-test
+# e2e-assess
 
 Arguments: `$ARGUMENTS` (the ticket as a path or as its text, then the spec path). Read both. Output: a verdict per axis and a list of misses, each with the line to add. The reviewer changes nothing and has not seen how the spec was written; the author fixes.
 
@@ -20,8 +20,8 @@ Scale: 0 missing or wrong, 1 weak, 2 good, 3 what an expert would write. 3 is ra
 2. **user_visible**: assertions on text, URL, element present or gone. API status alone or DOM structure alone scores 1. Readiness waits on `data-state` or `aria-busy` are fine.
 3. **boundaries**: the failure path and the rule edge from the ticket are exercised (the declined card, the forbidden action attempted anyway, the exact threshold), not only the happy path.
 4. **proof_strength**: the assertion fails when the feature silently breaks. Exact values (`toHaveText("paid")`, since `toContainText("paid")` holds for "unpaid"), reload before asserting state the ticket says must persist, absence scoped to a row or dialog, nothing that passes on an empty page.
-5. **decoupling**: `getByRole`, `getByLabel`, `getByText`, `getByTestId`, rows found by the name the user sees. No CSS, no `.locator(`, no sleeps, no `if (await x.isVisible())`, no `.first()`, no `.or()`.
-6. **noise**: every step serves a claim, no duplicated scenario. Inline login and setup repeated in each test is required house style, never noise.
+5. **decoupling**: `getByRole`, `getByLabel`, `getByText`, `getByTestId`, rows found by the name the user sees. No CSS, no `.locator(`, no sleeps, no `if (await x.isVisible())`, no `.first()`, no `.or()`, no seed id in a `goto` path.
+6. **noise**: every step serves a claim, no duplicated scenario. An assertion on transient text (toast, spinner) that the ticket does not claim is noise. Inline login and setup repeated in each test is required house style, never noise.
 
 ## Report
 

@@ -1,10 +1,10 @@
 ---
-name: release-confidence
+name: e2e-release-confidence
 description: 'Ship call for a change before deploy: which user flows the diff touches, which tests prove each one, where the gaps are, and a verdict of ship, ship-with-risk or hold. Use when asked "can this ship", before a deploy or merge, or whenever a green suite is the only argument for releasing.'
 license: MIT
 ---
 
-# release-confidence
+# e2e-release-confidence
 
 Input: the diff (a patch file or a git range), the ticket behind it, the app source with the diff applied, a running build of it, the suite, and the environment file `.e2e/e2e-env.md`, called ENV below. No `.e2e/e2e-env.md` in the repo: run the `e2e-setup` skill first. Output: a verdict with the evidence per flow. No test and no app file changes; the app is left exactly as found.
 
@@ -47,7 +47,7 @@ Put the change back before anything else and confirm the build is the candidate 
 ## 4. Verdict
 
 - **ship**: every flow proven. No unintended change.
-- **ship-with-risk**: every proven flow is proven, at least one flow has no proving test, none of the gaps is critical. Each gap names what a user would hit if the change is wrong there, and the done line a new test needs (hand to the `plan-tests` skill).
+- **ship-with-risk**: every proven flow is proven, at least one flow has no proving test, none of the gaps is critical. Each gap names what a user would hit if the change is wrong there, and the done line a new test needs (hand to the `e2e-plan` skill).
 - **hold**: a candidate is red with the change, a critical flow has no proving test, or the diff changes something the ticket did not ask for.
 
 ## 5. Report
