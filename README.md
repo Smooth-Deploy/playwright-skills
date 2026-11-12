@@ -5,13 +5,13 @@ Agent skills for testing with Playwright, installable into Claude Code, OpenCode
 Skills:
 
 - `e2e-setup`: learns a web app once and writes `.e2e/e2e-env.md`, the environment file the other skills read. Run it first.
-- `plan-tests`: turns a ticket into a Playwright E2E spec in which every step was proven in a live browser.
-- `repro-test`: turns a bug report into one test that is red on the bug and green once it is fixed.
-- `triage-flaky`: classifies one failing test as real, app-intermittent, test-flaky or environment by rerunning it on the same build.
-- `release-confidence`: ship call for a diff. Which user flows it touches, which tests prove each one, the gaps, and a verdict of ship, ship-with-risk or hold.
-- `prune-suite`: proposes which tests to drop and which steps to trim, one reason per finding. Changes nothing.
-- `e2e-spec-rules`: the rules every spec follows. `plan-tests` and `repro-test` load it; install it with them.
-- `assess-test`: reviews a spec against its ticket and reports what the spec fails to prove. `plan-tests` runs it as its last step.
+- `e2e-plan`: turns a ticket into a Playwright E2E spec in which every step was proven in a live browser.
+- `e2e-repro`: turns a bug report into one test that is red on the bug and green once it is fixed.
+- `e2e-triage`: classifies one failing test as real, app-intermittent, test-flaky or environment by rerunning it on the same build.
+- `e2e-release-confidence`: ship call for a diff. Which user flows it touches, which tests prove each one, the gaps, and a verdict of ship, ship-with-risk or hold.
+- `e2e-prune`: proposes which tests to drop and which steps to trim, one reason per finding. Changes nothing.
+- `e2e-spec-rules`: the rules every spec follows. `e2e-plan` and `e2e-repro` load it; install it with them.
+- `e2e-assess`: reviews a spec against its ticket and reports what the spec fails to prove. `e2e-plan` runs it as its last step.
 - `release-canary`: replies with the installed release version. Use it to check that an install or an update worked.
 
 ## Prerequisite

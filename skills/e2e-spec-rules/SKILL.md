@@ -1,6 +1,6 @@
 ---
 name: e2e-spec-rules
-description: The rules every Playwright E2E spec in this skill set follows, covering self-contained tests, user-facing locators, exact web-first assertions, and the patterns that disqualify a spec. Use when writing, fixing or reviewing a Playwright E2E spec, and whenever plan-tests or repro-test says to follow the spec rules.
+description: The rules every Playwright E2E spec in this skill set follows, covering self-contained tests, user-facing locators, exact web-first assertions, and the patterns that disqualify a spec. Use when writing, fixing or reviewing a Playwright E2E spec, and whenever e2e-plan or e2e-repro says to follow the spec rules.
 license: MIT
 ---
 

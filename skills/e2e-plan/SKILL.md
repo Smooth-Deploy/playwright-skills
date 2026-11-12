@@ -1,10 +1,10 @@
 ---
-name: plan-tests
+name: e2e-plan
 description: Turn a ticket, user story or bug report into a Playwright E2E spec that a user would trust. Use when asked to write, add or generate end-to-end tests for a feature, fix or ticket. Walks every step live in a browser with playwright-cli before writing it.
 license: MIT
 ---
 
-# plan-tests
+# e2e-plan
 
 Input: a ticket (any text) and the environment file `.e2e/e2e-env.md` (base URL, accounts, login steps, reset), called ENV below. ENV names a variable for each password; the values are in `.env.e2e`, which is not committed. Output: one spec file in which every line was proven in a live browser.
 
@@ -69,4 +69,4 @@ Run the spec with `npx playwright test <file>`. If the Playwright config does no
 
 Then read the spec against the done lines: every done line maps to one assertion. Close the browser: `playwright-cli close`.
 
-Last, run the `assess-test` skill on the ticket and the spec, and fix every miss it reports.
+Last, run the `e2e-assess` skill on the ticket and the spec, and fix every miss it reports.

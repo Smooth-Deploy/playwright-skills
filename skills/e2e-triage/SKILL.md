@@ -1,10 +1,10 @@
 ---
-name: triage-flaky
+name: e2e-triage
 description: Classify one failing Playwright test as real, app-intermittent, test-flaky or environment by rerunning it on the same build, then fix or quarantine only when the test itself is at fault. Use when a test failed in CI, when asked whether a failure is flaky, or before anyone touches product code because of a red test.
 license: MIT
 ---
 
-# triage-flaky
+# e2e-triage
 
 Input: one failing spec (file, test name, the failure output if there is one) and the environment file `.e2e/e2e-env.md` (base URL, accounts, reset, test hooks), called ENV below. No `.e2e/e2e-env.md` in the repo: run the `e2e-setup` skill first; it also checks that `playwright-cli` is installed. Output: a verdict, the evidence for it, and one action. Product code is never read or changed: a test made green by changing the app validates nothing.
 

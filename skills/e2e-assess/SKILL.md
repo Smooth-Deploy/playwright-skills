@@ -1,12 +1,12 @@
 ---
-name: assess-test
-description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of plan-tests before handing a spec over. Invoke with the ticket (a path, or the ticket text), then the spec path.
+name: e2e-assess
+description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of e2e-plan before handing a spec over. Invoke with the ticket (a path, or the ticket text), then the spec path.
 license: MIT
 context: fork
 background: false
 ---
 
-# assess-test
+# e2e-assess
 
 Arguments: `$ARGUMENTS` (the ticket as a path or as its text, then the spec path). Read both. Output: a verdict per axis and a list of misses, each with the line to add. The reviewer changes nothing and has not seen how the spec was written; the author fixes.
 
