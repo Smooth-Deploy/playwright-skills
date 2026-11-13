@@ -73,6 +73,10 @@ Run the spec with `npx playwright test <file>`. If the Playwright config does no
 - The spec is wrong (locator matches 0 or 2+ elements, wrong wait, wrong order): fix it from a fresh live snapshot. A locator that matches 2+ gets scoped (`dialog.getByRole("alert")`) or named (`getByRole("status", { name: ... })`), never `.first()`.
 - The app is wrong: the ticket is not done. Report it with the failing assertion. The assertion stays.
 
-Then read the spec against the done lines: every done line maps to one assertion. Close the browser: `playwright-cli close`.
+Then read the spec against the done lines: every done line maps to one assertion.
+
+Scan the spec: `node ../e2e-spec-rules/scripts/check-spec.mjs <file>`, a path from this skill's directory, where `e2e-spec-rules` is installed next to this skill. It prints one line per disqualified pattern and exits 1 when it finds any. Fix every finding from a fresh live snapshot, run the spec again, and scan again until it prints nothing.
+
+Close the browser: `playwright-cli close`.
 
 Last, run the `e2e-assess` skill on the ticket and the spec, and fix every miss it reports.
