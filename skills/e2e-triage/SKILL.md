@@ -1,6 +1,6 @@
 ---
 name: e2e-triage
-description: Classify one failing Playwright test as real, app-intermittent, test-flaky or environment by rerunning it on the same build, then fix or quarantine only when the test itself is at fault. Use when a test failed in CI, when asked whether a failure is flaky, or before anyone touches product code because of a red test.
+description: Classify one failing Playwright test as real, app-intermittent, test-flaky or environment by rerunning it on the same build, then fix or quarantine only when the test itself is at fault. Use when a test failed in CI, when asked whether a failure is flaky, or before anyone touches product code because of a red test. A bug with no test yet goes to e2e-repro, and a whole suite goes to e2e-prune.
 license: MIT
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: e2e-release-confidence
-description: 'Ship call for a change before deploy: which user flows the diff touches, which tests prove each one, where the gaps are, and a verdict of ship, ship-with-risk or hold. Use when asked "can this ship", before a deploy or merge, or whenever a green suite is the only argument for releasing.'
+description: 'Ship call for a change before deploy: which user flows the diff touches, which tests prove each one, where the gaps are, and a verdict of ship, ship-with-risk or hold. Use when asked "can this ship", before a deploy or merge, or whenever a green suite is the only argument for releasing. Writes no tests, so a gap it names goes to e2e-plan.'
 license: MIT
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: e2e-assess
-description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of e2e-plan before handing a spec over. Invoke with the ticket (a path, or the ticket text), then the spec path.
+description: Review a Playwright E2E spec against its ticket and report what it fails to prove. Use after writing or changing a spec, when asked whether a test is good enough or tests the right thing, or as the last step of e2e-plan before handing a spec over. Invoke with the ticket (a path, or the ticket text), then the spec path. A whole suite goes to e2e-prune, and a test that fails goes to e2e-triage.
 license: MIT
 context: fork
 background: false
