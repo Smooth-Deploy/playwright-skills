@@ -18,9 +18,15 @@ Read the ticket. Write 2 to 5 **done lines**: outcomes a user sees on screen whe
 
 A ticket that names a rule ("X must not be possible", "only admins can Y") yields two done lines: the UI hides the action, **and** the rule holds when the action is attempted anyway (direct request, stale page, second tab). The second line is where real regressions hide.
 
+A ticket that names a number (a threshold, a price, a count) yields two done lines: one at the number and one just below it, each with the exact values the user sees, computed from the prices ENV lists. Example: a $100.00 subtotal shows $0.00 shipping, a $99.00 subtotal shows $5.99. A rule tested only far from its edge is not tested.
+
+A ticket that removes, revokes or deletes one thing yields a done line about one neighbour that must survive: a sibling row, key or member the user still sees after the action and after a reload, named by its own text (another member's Remove button is still there; the "Deploy key" row still reads active). Proving one thing is gone says nothing about the rest.
+
 A ticket that says "nothing changes" or "stays the same" after an error yields a done line about the **server's** state: what the page shows after a reload. The page in front of the user still holds the client's copy; the server may already have changed.
 
 Every page the ticket names ("before paying", "on the confirmation page") and every "then" clause ("then confirm again", "then places the order") is its own done line, asserted on that page, by that action. A retry the ticket describes happens the way the ticket describes it: from the same dialog, not after a reload.
+
+A done line is proven by doing it, not by seeing the control for it. "X still works" means do X and read the page after. "Lands on page P" means assert what the user sees on P: every line item, not only an id or a total. "Hidden" or "empty" means drive the app to that state first and assert what it actually shows; a count at zero is usually absent, not "0".
 
 Ticket too vague to write done lines: stop and ask one precise question. Guessing produces a test of the wrong thing.
 
@@ -28,7 +34,7 @@ Done when: every done line is user-visible and checkable with a Playwright asser
 
 ## 2. Scenarios
 
-Group done lines into at most 3 scenarios, ranked: permission boundary and failure path first, happy path last. Each scenario starts from reset state and logs in on its own. Use the seeded records ENV names (the seeded member, the seeded key, the listed products); inventing data through another flow tests that flow instead.
+Group done lines into at most 3 scenarios, ranked: permission boundary and failure path first, happy path last. A done line the ticket places after another step (sign out after the guest cart merged, retry after the decline) is tested in that scenario right after that step; starting it from a shortcut state (a cart built while already signed in) tests a flow the ticket never names. Each scenario starts from reset state and logs in on its own. A guest scenario resets too: a cookie cart is server state, and a spec that passes only in a fresh browser is not repeatable. The reset is the one ENV names; if ENV marks it unverified, verify it live in step 3 (call it once, reload, see the seed) and then use it. A done line that mutates (remove a member, switch a plan, place an order) is performed, never downgraded to a read-only check because reset looked uncertain: without the reset the test is not repeatable, and without the mutation the ticket is not tested. Use the seeded records ENV names (the seeded member, the seeded key, the listed products); inventing data through another flow tests that flow instead.
 
 ## 3. Walk each scenario live
 
@@ -46,7 +52,7 @@ generate-locator e20  # user-facing locator for the spec
 run-code "async page => { const r = await page.request.delete('<api path of the rule under test>'); return r.status(); }"
 ```
 
-Loop per step: act, snapshot, write down the user-facing locator (`getByRole`, `getByLabel`, `getByText`; `getByTestId` only when nothing user-facing is unique) and the assertion that the snapshot proves. For a rule check, run the direct request with `run-code`, then `reload` and snapshot. For a failure path, trigger the error, then `reload` and snapshot. In both, the user-visible state after reload is the assertion; the state before reload is a second, weaker one.
+Loop per step: act, snapshot, run `generate-locator` on the ref; a locator typed from memory or guessed from the snapshot text is not proven. When it returns a testid and the snapshot shows a role with a user-facing name, write the role form (`getByRole("article").filter({ hasText: "Classic Cotton T-Shirt" }).getByRole("button", { name: "Add to cart" })`); the testid stays only when nothing user-facing is unique, as with a badge that is just a number. Write down the locator and the assertion that the snapshot proves. Reach each page the way the spec will: `open` once, then clicks. For a rule check, run the direct request with `run-code`, then `reload` and snapshot. For a failure path, trigger the error, then `reload` and snapshot. In both, the user-visible state after reload is the assertion; the state before reload is a second, weaker one.
 
 A step enters the spec only after it ran once live and the snapshot showed the expected result. A locator that returns 0 or 2+ elements live gets fixed live, never with `.first()`, `.last()` or a try/catch in the spec.
 
