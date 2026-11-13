@@ -26,7 +26,7 @@ npm install -g @playwright/cli@latest
 
 ## Install
 
-The `stable` branch always points at the latest release. Install from it, not from `master`.
+The `stable` branch always points at the latest release. Install from it, not from `main`.
 
 ### Claude Code
 
