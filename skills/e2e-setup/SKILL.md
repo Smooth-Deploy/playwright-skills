@@ -1,6 +1,6 @@
 ---
 name: e2e-setup
-description: Learn a web app once and write .e2e/e2e-env.md, the environment file every other E2E skill reads first. Also checks that playwright-cli, which the other E2E skills rely on, is installed. Use when a repo has no .e2e/e2e-env.md yet, when asked to set up or prepare Playwright E2E testing for an app, or when that file is stale after an auth, roles or seed change.
+description: Learn a web app once and write .e2e/e2e-env.md, the environment file every other E2E skill reads first. Also checks that playwright-cli, which the other E2E skills rely on, is installed. Use when a repo has no .e2e/e2e-env.md yet, when asked to set up or prepare Playwright E2E testing for an app, or when that file is stale after an auth, roles or seed change. Writes no spec, which is the job of e2e-plan.
 license: MIT
 ---
 

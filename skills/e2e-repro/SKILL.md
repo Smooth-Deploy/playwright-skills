@@ -1,6 +1,6 @@
 ---
 name: e2e-repro
-description: Turn a bug report into one Playwright E2E test that is red on the bug and green once it is fixed, before anyone touches the code. Use when asked to reproduce a bug, write a regression test for a bug report, or confirm a reported bug is real. Reproduces live in a browser with playwright-cli first.
+description: Turn a bug report into one Playwright E2E test that is red on the bug and green once it is fixed, before anyone touches the code. Use when asked to reproduce a bug, write a regression test for a bug report, or confirm a reported bug is real. Reproduces live in a browser with playwright-cli first. A feature ticket with no bug goes to e2e-plan, and a test that already exists and fails goes to e2e-triage.
 license: MIT
 ---
 
