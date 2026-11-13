@@ -1,6 +1,6 @@
 ---
 name: e2e-plan
-description: Turn a ticket, user story or bug report into a Playwright E2E spec that a user would trust. Use when asked to write, add or generate end-to-end tests for a feature, fix or ticket. Walks every step live in a browser with playwright-cli before writing it.
+description: Turn a ticket or user story into a Playwright E2E spec that a user would trust. Use when asked to write, add or generate end-to-end tests for a feature, fix or ticket. Walks every step live in a browser with playwright-cli before writing it. A bug report goes to e2e-repro, and a spec that already exists and fails goes to e2e-triage.
 license: MIT
 ---
 

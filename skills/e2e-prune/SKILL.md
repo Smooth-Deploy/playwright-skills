@@ -1,6 +1,6 @@
 ---
 name: e2e-prune
-description: Review a Playwright suite and propose which tests to drop and which steps to trim, with one reason per finding. Use when a suite has grown faster than anyone can read it, when asked which tests are noise, duplicates or theater, or before a maintenance pass. Proposes only; changes no test and no app file.
+description: Review a Playwright suite and propose which tests to drop and which steps to trim, with one reason per finding. Use when a suite has grown faster than anyone can read it, when asked which tests are noise, duplicates or theater, or before a maintenance pass. Proposes only; changes no test and no app file. One spec checked against its ticket goes to e2e-assess, and a test that fails goes to e2e-triage.
 license: MIT
 ---
 
