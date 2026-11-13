@@ -22,6 +22,16 @@ The `validate` check must pass. Workflows on a pull request from a first-time co
 
 A skill is a set of instructions that an agent follows with the user's permissions. Pull requests that add scripts, network calls, or instructions unrelated to the stated purpose of the skill are closed.
 
+## Trigger evals
+
+`evals/` holds one case per request a user might type, and each case checks which skill the agent loads for it. Run them after a change to any `description:` line:
+
+```
+claude plugin eval . --ablation none --model sonnet
+```
+
+The run calls the model with your own credentials, about $1 per run of the suite. It is not part of the `validate` check. A new skill comes with two cases: copy an existing directory under `evals/` and change the prompt and the skill name in `graders/fired.md`.
+
 ## Release (maintainer)
 
 1. In a pull request, set the new version: `node scripts/version.mjs --set X.Y.Z`. Merge it.
