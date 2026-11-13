@@ -56,4 +56,6 @@ Run `npx playwright test <file>`. If the Playwright config does not load `.env.e
 - Fails anywhere else (locator matches 0 or 2+, wrong wait, login): the spec is wrong. Fix it from a fresh live snapshot, never with `.first()` or a try/catch.
 - Green: the test did not capture the bug. Back to step 2; the assertion or the steps missed what the reporter did.
 
+Scan the spec: `node ../e2e-spec-rules/scripts/check-spec.mjs <file>`, a path from this skill's directory, where `e2e-spec-rules` is installed next to this skill. It prints one line per disqualified pattern and exits 1 when it finds any. Fix every finding from a fresh live snapshot, and scan again until it prints nothing; the test stays red on the expected line.
+
 Close the browser: `playwright-cli close`.

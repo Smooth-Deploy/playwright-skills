@@ -12,6 +12,7 @@ Open an issue with the bug or idea template. One problem per issue, with the ste
 
    ```
    node scripts/version.mjs
+   node scripts/check-spec.test.mjs
    gh skill publish --dry-run
    claude plugin validate .
    ```

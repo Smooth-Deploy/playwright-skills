@@ -17,6 +17,8 @@ jobs:
         run: |
           node -e 'for (const f of [".claude-plugin/marketplace.json", ".claude-plugin/plugin.json"]) JSON.parse(require("fs").readFileSync(f, "utf8"))'
           node scripts/version.mjs
+      - name: Spec scan flags every rule and passes a clean spec
+        run: node scripts/check-spec.test.mjs
       - name: Skills follow the Agent Skills specification
         run: gh skill publish --dry-run
         env:

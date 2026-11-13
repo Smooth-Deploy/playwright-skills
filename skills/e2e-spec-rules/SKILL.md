@@ -21,3 +21,9 @@ Rules for a spec that fails when the feature breaks and for no other reason. ENV
 - **URLs.** Relative everywhere, `goto("/settings")` and `page.request.delete("/api/...")` alike. The base URL lives in the Playwright config, never in the spec.
 
 Disqualified, each one on its own: `waitForTimeout`, `if (await x.isVisible())`, `.catch(() => ...)` on a locator, regex locators guessing the UI (`/log ?in|sign ?in/`), `page.on("dialog")` for a dialog never seen live, `.first()`/`.last()`/`.nth()` to silence ambiguity, `.or()` to hedge between two guesses (`.and()` and `.filter()` narrow and are fine).
+
+## Scan
+
+Before a spec is handed over, scan it: `node scripts/check-spec.mjs <spec file>`, where `scripts/` is inside this skill's directory. The scan prints one line per finding (`file:line  rule  why`) and exits 1 when there is any. It reads the files it is given and does nothing else. Fix every finding from a fresh live snapshot, then scan again.
+
+A clean scan is not a pass. The scan reads text, so it sees a `waitForTimeout`, a `.first()`, a `.locator(`, a regex in a locator or in `toHaveURL`, a `beforeEach`, the `request` fixture and an absolute URL. It cannot see a second `goto`, a seed id in a path, `toContainText` on a status, or a dialog handler never seen live. Those are still read against the rules above. No Node on the machine: read the whole spec against the rules instead.

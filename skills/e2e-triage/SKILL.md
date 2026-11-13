@@ -44,7 +44,7 @@ Fix the test, never the app and never by waiting longer. The fixed test follows 
 - A locator matching two elements gets scoped to its row, dialog or form, or uses the testid from ENV. Never `.first()`, `.nth()`, `.or()`.
 - An assertion on a toast or spinner is replaced by one on the state the toast announced.
 
-Prove it: `npx playwright test <file> --repeat-each 10 --retries 0`. 10 of 10 green is a fix. Anything less, or no visible cause: quarantine, so the suite tells the truth about it:
+Scan the fixed test with `node ../e2e-spec-rules/scripts/check-spec.mjs <file>`, a path from this skill's directory, and fix what it prints. Prove it: `npx playwright test <file> --repeat-each 10 --retries 0`. 10 of 10 green is a fix. Anything less, or no visible cause: quarantine, so the suite tells the truth about it:
 
 ```ts
 // quarantined <today's date>: failed 6/10 on the same build. Cause: count read after a fixed 1s sleep,
