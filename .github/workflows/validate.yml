@@ -21,3 +21,5 @@ jobs:
         run: gh skill publish --dry-run
         env:
           GH_TOKEN: ${{ github.token }}
+      - name: Every skill named in a skill or the README exists
+        run: node scripts/skill-refs.mjs
